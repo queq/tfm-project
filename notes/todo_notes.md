@@ -15,4 +15,9 @@ W4
 
 - Escribir intro, objetivos y estado del arte
 - Creación de dataset conjunto
-- Rellenar con comentarios internos por sección para
+- Rellenar con comentarios internos por sección para planear
+
+W5
+
+- Selección global de características de los corpus, de acuerdo con estado del arte.
+- 
