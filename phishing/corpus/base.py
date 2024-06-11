@@ -49,7 +49,7 @@ class PhishingURLModel:
                 )
 
                 src_df = pd.read_csv(file_path)
-                to_append_df = src_df[src_df["verified"] == "yes"][["url"]].copy()
+                to_append_df = src_df[(src_df["verified"] == "yes") & (src_df["url"].str.len() > 1)][["url"]].copy()
                 to_append_df.loc[:, "source"] = "PhishTank"
             elif s == "Phishing.Database":
                 file_path = "./files/phishing/Phishing.Database/ALL-phishing-links.tar.gz"
@@ -66,7 +66,7 @@ class PhishingURLModel:
                     names=["url"],
                     engine="python"
                 )
-                to_append_df = src_df[["url"]].copy()
+                to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
                 to_append_df.loc[:, "source"] = "Phishing.Database"
             elif s == "OpenPhish-Community":
                 file_path = "./files/phishing/OpenPhish-Community/feed.txt"
@@ -80,7 +80,7 @@ class PhishingURLModel:
                     header=0,
                     names=["url"]
                 )
-                to_append_df = src_df[["url"]].copy()
+                to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
                 to_append_df.loc[:, "source"] = "OpenPhish-Community"
 
             to_append_df.loc[:, self.label_col] = "phishing"
@@ -101,7 +101,7 @@ class PhishingURLModel:
                     header=0,
                     names=["rank", "url"]
                 )
-                to_append_df = src_df[["url"]].copy()
+                to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
                 to_append_df.loc[:, "source"] = "Cisco-Umbrella"
             elif s == "Majestic":
                 file_path = "./files/legitimate/Majestic/majestic_million.csv"
@@ -111,7 +111,7 @@ class PhishingURLModel:
                 )
 
                 src_df = pd.read_csv(file_path)
-                to_append_df = src_df[["Domain"]].copy()
+                to_append_df = src_df[src_df["Domain"].str.len() > 1][["Domain"]].copy()
                 to_append_df.loc[:, "source"] = "Majestic"
 
             to_append_df.loc[:, self.label_col] = "legitimate"

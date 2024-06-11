@@ -1,7 +1,14 @@
-import pandas as pd
-# from pyspark.sql import SparkSession
-import time
+"""
+Corpus.py docstring
+"""
 
+# Published modules import
+# import time
+# import pandas as pd
+# from pyspark.sql import SparkSession
+
+
+# Custom modules import
 from phishing.corpus.base import PhishingURLModel
 
 # spark = SparkSession.builder.getOrCreate()

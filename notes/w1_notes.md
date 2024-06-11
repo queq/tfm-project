@@ -54,7 +54,7 @@
 
 - Abdelnabi, Sahar, Katharina Krombholz, and Mario Fritz. “VisualPhishNet: Zero-Day Phishing Website Detection by Visual Similarity.” In Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security, 1681–98. CCS ’20. New York, NY, USA: Association for Computing Machinery, 2020. https://doi.org/10.1145/3372297.3417233.
 
-  Use a visual-based approach instead of metadata features (these methods fail if attackersused images or embedded objects instead of HTML text. Theyare also vulnerable to code obfuscation techniques where a differentcode produces similar rendered images). Motivated by these reasons, we treated the problem as a similar-ity learning problem with deep learning using Siamese or tripletnetworks which have been successfully used in applications suchas face verification, signature verification, and character recognition. In each of these applications, the identity of animage is compared against a database and the model verifies if thisidentity is matched with any of those in the database.
+  Use a visual-based approach instead of metadata features (these methods fail if attackers use images or embedded objects instead of HTML text. They are also vulnerable to code obfuscation techniques where a differentcode produces similar rendered images). Motivated by these reasons, we treated the problem as a similar-ity learning problem with deep learning using Siamese or tripletnetworks which have been successfully used in applications such as face verification, signature verification, and character recognition. In each of these applications, the identity of an image is compared against a database and the model verifies if this identity is matched with any of those in the database.
 
 ### URL-based
 
