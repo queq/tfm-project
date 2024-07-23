@@ -82,6 +82,7 @@ class PhishingURLModel:
                     file_path,
                     header=0,
                     names=["url"],
+                    sep="¡º",
                     on_bad_lines="warn"
                 )
                 to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
