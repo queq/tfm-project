@@ -3,7 +3,7 @@ base - WIP
 """
 
 # from typing import Any, Dict, Generic, List, Optional, TypeVar, TYPE_CHECKING
-from typing import Optional
+from typing import Optional, Callable
 import os
 import requests
 import pandas as pd
@@ -24,13 +24,15 @@ class PhishingURLModel:
             "legitimate": ["Cisco-Umbrella"]
         },
         max_size: Optional[int] = 1e6,
-        sample_seed: Optional[int] = 42
+        sample_seed: Optional[int] = 42,
+        feature_cols: list[dict] = []
     ):
         self.urls_col = urls_col
         self.label_col = label_col
         self.sources = sources
         self.max_size = max_size
         self.sample_seed = sample_seed
+        self.feature_cols = feature_cols
 
     def setup(self):
         """
@@ -129,9 +131,32 @@ class PhishingURLModel:
 
         out_df_strat = out_df.groupby(self.label_col).apply(lambda x: x.sample(n=sample_size, random_state=self.sample_seed))
 
+        for c in self.feature_cols:
+            if c['name'] in out_df_strat.columns:
+                c['name'] = f"{c['name']}_1"
+
+            if c['type'] == "map":
+                out_df_strat[c['name']] = out_df_strat[self.urls_col].map(c['func'])
+            elif c['type'] == "lookup":
+                out_df_strat = c['func'](self.urls_col, c['name'], out_df_strat)
+
         return out_df_strat.reset_index(drop=True)
 
-    def export(self, out_path):
+    def add_map_col(self, col_name: str, col_func: Callable[[str], str]):
+        """
+        add_map_col fn docstrings WIP
+        """
+
+        self.feature_cols = self.feature_cols + [{"name": col_name, "func": col_func, "type": "map"}]
+
+    def add_lookup_col(self, col_name: str, col_func: Callable[[str, str, pd.DataFrame], pd.DataFrame]):
+        """
+        add_col fn docstrings WIP
+        """
+
+        self.feature_cols = self.feature_cols + [{"name": col_name, "func": col_func, "type": "lookup"}]
+
+    def export(self, out_path: str):
         """
         export fn docstrings WIP
         """
@@ -139,7 +164,7 @@ class PhishingURLModel:
         out_model = self.setup()
         out_model.to_csv(out_path, index=False)
 
-    def __get_feed_file(self, url, path):
+    def __get_feed_file(self, url: str, path: str):
         file_path = os.path.join(
             os.path.abspath(''),
             path
