@@ -50,7 +50,7 @@ class PhishingURLModel:
                     file_path
                 )
 
-                src_df = pd.read_csv(file_path)
+                src_df = pd.read_csv(file_path, on_bad_lines="warn")
                 to_append_df = src_df[(src_df["verified"] == "yes") & (src_df["url"].str.len() > 1)][["url"]].copy()
                 to_append_df.loc[:, "source"] = "PhishTank"
             elif s == "Phishing.Database":
@@ -66,7 +66,8 @@ class PhishingURLModel:
                     header=0,
                     sep="¡º",
                     names=["url"],
-                    engine="python"
+                    engine="python",
+                    on_bad_lines="warn"
                 )
                 to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
                 to_append_df.loc[:, "source"] = "Phishing.Database"
@@ -80,7 +81,8 @@ class PhishingURLModel:
                 src_df = pd.read_csv(
                     file_path,
                     header=0,
-                    names=["url"]
+                    names=["url"],
+                    on_bad_lines="warn"
                 )
                 to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
                 to_append_df.loc[:, "source"] = "OpenPhish-Community"
@@ -101,7 +103,8 @@ class PhishingURLModel:
                     file_path,
                     compression="zip",
                     header=0,
-                    names=["rank", "url"]
+                    names=["rank", "url"],
+                    on_bad_lines="warn"
                 )
                 to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
                 to_append_df.loc[:, "source"] = "Cisco-Umbrella"
@@ -112,7 +115,7 @@ class PhishingURLModel:
                     file_path
                 )
 
-                src_df = pd.read_csv(file_path)
+                src_df = pd.read_csv(file_path, on_bad_lines="warn")
                 to_append_df = src_df[src_df["Domain"].str.len() > 1][["Domain"]].copy()
                 to_append_df.loc[:, "source"] = "Majestic"
 
