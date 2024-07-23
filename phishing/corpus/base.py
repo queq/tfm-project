@@ -81,8 +81,9 @@ class PhishingURLModel:
                 src_df = pd.read_csv(
                     file_path,
                     header=0,
-                    names=["url"],
                     sep="¡º",
+                    names=["url"],
+                    engine="python",
                     on_bad_lines="warn"
                 )
                 to_append_df = src_df[src_df["url"].str.len() > 1][["url"]].copy()
